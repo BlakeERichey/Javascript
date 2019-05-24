@@ -6,3 +6,8 @@ Here Are Instructions to Start Your Own Meteor Project
 
 Next You Will Want to Get Routes Set up. To Do so You Need Flowrouter  
 [Here Is a Guide to Setting up Basic Routing Using FlowRouter](https://dev.to/damcosset/meteor-react-and-flowrouter-quick-setup-6g5)
+
+To use this you will need to run 
+`meteor npm install`
+`meteor add kadira:flow-router`
+`meteor`
