@@ -11,6 +11,3 @@ To use this you will need to run
 `meteor npm install` this installs missing dependencies  
 `meteor add kadira:flow-router` this specifically installs flowrouter  
 `meteor` runs app  
-
-You will also may need to run:
-`rm -rf .meteor/local` if this is in a new project and that file is copied somehow
