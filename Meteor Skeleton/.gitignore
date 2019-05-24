@@ -1,0 +1,5 @@
+node_modules/
+.meteor/local
+.DS_Store
+package-lock.json
+.vscode
