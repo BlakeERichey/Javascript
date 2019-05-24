@@ -1,8 +1,8 @@
-This is a skeleton to be used as a template for other meteor projects
+This Is a Skeleton to Be Used as a Template for Other Meteor Projects
 ===
 
-Here are instructions to start your own Meteor Project
-[Get Started with Meteor Here With your first project](https://www.meteor.com/tutorials/react/creating-an-app)
+Here Are Instructions to Start Your Own Meteor Project  
+[Get Started with Meteor Here with Your First Project](https://www.meteor.com/tutorials/react/creating-an-app)
 
-Next you will want to get routes set up. To do so you need FlowRouter  
-[Here is a guide to setting up basic routed using FlowRouter](https://dev.to/damcosset/meteor-react-and-flowrouter-quick-setup-6g5)
+Next You Will Want to Get Routes Set up. To Do so You Need Flowrouter  
+[Here Is a Guide to Setting up Basic Routing Using FlowRouter](https://dev.to/damcosset/meteor-react-and-flowrouter-quick-setup-6g5)
