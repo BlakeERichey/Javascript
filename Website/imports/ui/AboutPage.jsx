@@ -1,7 +1,7 @@
 import React from 'react'
 
 const AboutPage = () => {
-  return 'This is the about page'
+  return 'Congratulations on finding this secret page!!'
 }
 
 export default AboutPage

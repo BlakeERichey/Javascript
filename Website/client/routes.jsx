@@ -3,8 +3,10 @@ import { mount } from 'react-mounter';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import BasicLayout from '/imports/layouts/BasicLayout.jsx';
 
-import HomePage from '/imports/ui/HomePage.jsx';
+import HomePage  from '/imports/ui/HomePage.jsx';
 import AboutPage from '/imports/ui/AboutPage.jsx';
+import Login     from '/client/components/Login.jsx';
+import Logout    from '/client/components/Logout.jsx';
 
 FlowRouter.route('/', {
   name: 'Home',
@@ -15,11 +17,29 @@ FlowRouter.route('/', {
   }
 })
 
+FlowRouter.route('/login', {
+  name: 'Login',
+  action(){
+    mount( BasicLayout, {
+      content: <Login />
+    })
+  }
+})
+
 FlowRouter.route('/about', {
   name: 'About',
   action(){
     mount( BasicLayout, {
       content: <AboutPage />
+    })
+  }
+})
+
+FlowRouter.route('/logout', {
+  name: 'Logout',
+  action(){
+    mount( BasicLayout, {
+      content: <Logout />
     })
   }
 })
