@@ -131,5 +131,7 @@ p.header{
   color: black;
   background-color: rgba(207,226,243, .5);  
   font-size: 18px;
-  text-align: left
+  text-align: left;
+  font-weight: bold;
+  padding-left: 20px;
 }

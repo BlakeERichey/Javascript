@@ -3,7 +3,7 @@ import React from 'react'
 const AboutPage = () => {
   return (
     <div>
-      <p className='header'>&nbsp;&nbsp;About Me</p>
+      <p className='header'>About Me</p>
       <p>My name is Blake Richey, I am a undergraduate at The University of Texas at Tyler studying Computer Science. 
       My first year of college I realized I loved robotics and the general automation of things. I feel like this field
       has so much opportunity to help make the lives of everyday people easier. I spend most of my extracurricular
@@ -41,9 +41,7 @@ const AboutPage = () => {
         the opportunity at Argonne this Summer and hope to befriend a few people and network with others.
       </p>
 
-      <p className='header'>&nbsp;&nbsp;
-        <b>TLDR:</b>
-      </p>
+      <p className='header'>TLDR:</p>
       <p>
         My name is Blake Richey, I am a undergraduate at The University of Texas at Tyler studying Computer Science with a 
         focus on Robotics. I enjoy the general automation of things because I believe it can help people

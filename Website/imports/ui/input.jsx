@@ -28,14 +28,18 @@ export class BasicInput extends React.Component{
 
 export class BasicPass extends React.Component{
   render(){
-    let {placeholder} = this.props;
+    let {placeholder, style} = this.props;
+    if(!style      ){ style = {};              }
     if(!placeholder){ placeholder = 'Password' }
+
     return (
-      <input ref='basicInput' type="password"
-        className="form-control" 
-        placeholder={placeholder}
-        onChange={this.onChange.bind(this)}
-        />
+      <div style={style}>
+        <input ref='basicInput' type="password"
+          className="form-control" 
+          placeholder={placeholder}
+          onChange={this.onChange.bind(this)}
+          />
+      </div>
     )
 
   }
@@ -56,11 +60,13 @@ export class BasicButton extends React.Component{
   render(){
     const {text, onClick} = this.props;
     return (
-      <button type="submit" style={this.props.style} 
-      className="btn btn-primary"
-      onClick={() => onClick()}>
-        {text || 'Submit'}
-      </button>
+      <div>
+        <button type="submit" style={this.props.style} 
+        className="btn btn-primary"
+        onClick={() => onClick()}>
+          {text || 'Submit'}
+        </button>
+      </div>
     )
   }
 }

@@ -8,8 +8,8 @@ class Login extends React.Component{
   render(){
     return(
       <div>
-        <BasicInput ref='user' placeholder='Username'/> <br/>
-        <BasicPass ref='pass'/>
+        <BasicInput ref='user' placeholder='Username'/>
+        <BasicPass ref='pass' style={{paddingTop: '2px'}} />
         <BasicButton style={{float: 'right'}} onClick={this.submit.bind(this)}/>
       </div>
     )
