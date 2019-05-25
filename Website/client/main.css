@@ -125,3 +125,11 @@ header .hide-completed {
     padding-bottom: 5px;
   }
 }
+
+p.header{
+  font-family: arial;
+  color: black;
+  background-color: rgba(207,226,243, .5);  
+  font-size: 18px;
+  text-align: left
+}

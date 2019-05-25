@@ -19,7 +19,7 @@ class Login extends React.Component{
     const username = this.refs.user.getValue();
     const password = this.refs.pass.getValue();
 
-    if(username === 'Blake' && password === 'richey'){
+    if((username||'').toLowerCase() === 'blake' && password === 'richey'){
       alert('Correct! You may log in!');
       FlowRouter.go('Logout');
     }else{
