@@ -5,12 +5,13 @@ export function logout(){
   Meteor.logout();
 }
 
-export function login(username, password){
+export function login(username, password, callback){
   Meteor.loginWithPassword(username, password, (err, res) => {
     if(err){
       alert(err.toString());
     }else{
-      return res;
+      if(callback){ callback(); }
+      return;
     }
   })
 }

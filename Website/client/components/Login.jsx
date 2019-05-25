@@ -20,10 +20,7 @@ class Login extends React.Component{
   submit(){
     const username = this.refs.user.getValue();
     const password = this.refs.pass.getValue();
-
-    if(login(username, password)){
-      FlowRouter.go('Logout');
-    }
+    login(username, password, FlowRouter.go('Logout'));
   }
 }
 export default Login;
