@@ -1,5 +1,7 @@
 import React from 'react';
+import {Meteor} from 'meteor/meteor';
 
+import {login} from '/imports/functions/common.js';
 import {BasicInput, BasicPass, BasicButton} from '/imports/ui/input.jsx';
 
 class Login extends React.Component{
@@ -19,13 +21,9 @@ class Login extends React.Component{
     const username = this.refs.user.getValue();
     const password = this.refs.pass.getValue();
 
-    if((username||'').toLowerCase() === 'blake' && password === 'richey'){
-      alert('Correct! You may log in!');
+    if(login(username, password)){
       FlowRouter.go('Logout');
-    }else{
-      alert('Incorrect username or password');
     }
   }
 }
-
 export default Login;

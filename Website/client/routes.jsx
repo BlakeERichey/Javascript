@@ -30,7 +30,8 @@ FlowRouter.route('/about', {
   name: 'About',
   action(){
     mount( BasicLayout, {
-      content: <AboutPage />
+      content: <AboutPage />,
+      auth: true
     })
   }
 })
@@ -39,7 +40,8 @@ FlowRouter.route('/logout', {
   name: 'Logout',
   action(){
     mount( BasicLayout, {
-      content: <Logout />
+      content: <Logout />,
+      auth: true
     })
   }
 })

@@ -1,13 +1,18 @@
 import React from 'react'
 
-import {InternalLink} from '/imports/ui/input.jsx';
+import {BasicButton} from '/imports/ui/input.jsx';
+import {logout} from '/imports/functions/common.js';
 
-const Logout = () => {
+const Logout = () => { 
   return (
     <div>
       Thanks for logging in!
       <div></div>
-      <InternalLink dest='Home' text='Logout' />
+      <BasicButton dest='Home' text='Logout' 
+        onClick={() => {
+          logout();
+          FlowRouter.go('Home');
+        }}/>
     </div>
   )
 }
