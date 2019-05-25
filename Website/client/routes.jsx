@@ -5,8 +5,9 @@ import BasicLayout    from '/imports/layouts/BasicLayout.jsx';
 
 import HomePage  from '/imports/ui/HomePage.jsx';
 import AboutPage from '/imports/ui/AboutPage.jsx';
-import Login     from '/client/components/Login.jsx';
-import Logout    from '/client/components/Logout.jsx';
+import Login     from '/client/components/login.jsx';
+import Logout    from '/client/components/logout.jsx';
+import CreateUser from '/client/components/accounts/accounts.create.user.jsx';
 
 FlowRouter.route('/', {
   name: 'Home',
@@ -42,6 +43,15 @@ FlowRouter.route('/logout', {
     mount( BasicLayout, {
       content: <Logout />,
       auth: true
+    })
+  }
+})
+
+FlowRouter.route('/create/user', {
+  name: 'CreateUser',
+  action(){
+    mount( BasicLayout, {
+      content: <CreateUser />,
     })
   }
 })

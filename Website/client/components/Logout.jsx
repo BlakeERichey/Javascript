@@ -8,7 +8,7 @@ const Logout = () => {
     <div>
       Thanks for logging in!
       <div></div>
-      <BasicButton dest='Home' text='Logout' 
+      <BasicButton text='Logout' 
         onClick={() => {
           logout();
           FlowRouter.go('Home');

@@ -73,9 +73,9 @@ export class BasicButton extends React.Component{
 
 export class InternalLink extends React.Component{
   render(){
-    const {text} = this.props;
+    const {text, style} = this.props;
     return(
-      <BasicButton text={text || 'Basic'} onClick={this.changeRoute.bind(this)} />
+      <BasicButton style={style} text={text || 'Basic'} onClick={this.changeRoute.bind(this)} />
     )
   }
 

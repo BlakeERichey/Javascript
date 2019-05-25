@@ -9,4 +9,7 @@ Meteor.methods({
 
     return res;
   },
+  'user.created'(username){
+    console.log('User created:', username);
+  }
 });
