@@ -58,11 +58,15 @@ export class BasicPass extends React.Component{
 
 export class BasicButton extends React.Component{
   render(){
-    const {text, onClick} = this.props;
+    const {text, onClick, type} = this.props;
+    let className='btn btn-primary'
+    if(type){
+      className+=` btn-${type}`
+    }
     return (
       <button type="submit" style={this.props.style} 
-      className="btn btn-primary"
-      onClick={() => onClick()}>
+      className={className}
+      onClick={onClick?() => onClick():null}>
         {text || 'Submit'}
       </button>
     )

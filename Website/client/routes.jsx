@@ -7,6 +7,7 @@ import HomePage     from '/imports/ui/HomePage.jsx';
 import AboutPage    from '/imports/ui/AboutPage.jsx';
 import Login        from '/client/components/login.jsx';
 import Logout       from '/client/components/logout.jsx';
+import Pathfinder   from '/client/components/pathfinder/pathfinder.jsx';
 import GoblinSlayer from '/client/components/goblinslayer/goblin.slayer.jsx';
 import CreateUser   from '/client/components/accounts/accounts.create.user.jsx';
 
@@ -33,6 +34,16 @@ FlowRouter.route('/about', {
   action(){
     mount( BasicLayout, {
       content: <AboutPage />,
+      auth: true
+    })
+  }
+})
+
+FlowRouter.route('/pathfinder', {
+  name: '/pathfinder',
+  action(){
+    mount( BasicLayout, {
+      content: <Pathfinder />,
       auth: true
     })
   }

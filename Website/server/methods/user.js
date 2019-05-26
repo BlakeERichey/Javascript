@@ -13,4 +13,7 @@ Meteor.methods({
   'user.created'(username){
     console.log('User created:', username);
   },
+  'user.set.password'(id, newPassword){ //DO NOT CALL THIS FROM CLIENT
+    Accounts.setPassword(id, newPassword);
+  }
 });

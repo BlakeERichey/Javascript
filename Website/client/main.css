@@ -18,6 +18,15 @@ body {
   font-size: 14px;
 }
 
+.panel {
+  float: right;
+  width: 20%;
+  height: auto;
+  background-image: linear-gradient(to bottom, rgb(78,4,6), rgb(234,17,17) 90%);
+  border-radius: 7px;
+  border-collapse: separate; 
+}
+
 .navig{
   background-color: rgba(49,84,129,.3);
 }
@@ -118,6 +127,14 @@ li.checked .text {
 li.private {
   background: #eee;
   border-color: #ddd;
+}
+
+td.center{
+  text-align: center;
+}
+
+td.right{
+  text-align: right;
 }
  
 header .hide-completed {

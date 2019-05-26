@@ -65,6 +65,9 @@ class BasicLayout extends React.Component{
               <InternalLink dest='About' text='About'/>
             </li>
             <li className="nav-item">
+              <InternalLink dest='/pathfinder' text='Pathfinder'/>
+            </li>
+            <li className="nav-item">
               <InternalLink dest='GoblinSlayer' text='GoblinSlayer'/>
             </li>
           </ul>

@@ -6,7 +6,7 @@ class GoblinSlayer extends React.Component{
         <div style={{textAlign:'center'}}>
           In honor of the mighty GoblinSlayer!!
           <br />
-            Note I do not own or claim to own any of the source content presented on this page. All content is owned by the producers of developers of the GoblinSlayer Anime... Manga wtv
+            Note: I do not own or claim to own any of the source content presented on this page. All content is owned by the producers and developers of the GoblinSlayer Anime... Manga wtv
         </div>
         <div>
           <img src='resources/goblinslayer/gs1.png' />
