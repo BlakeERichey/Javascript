@@ -6,5 +6,5 @@ import './main.html';
 import BasicLayout from '/imports/layouts/BasicLayout.jsx';
 
 Meteor.startup(() => {
-  render( <BasicLayout />, document.getElementById("root"));
+  //render( <BasicLayout />, document.getElementById("root"));
 });

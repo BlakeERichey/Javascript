@@ -8,13 +8,35 @@ const App = props => {
     if(!Meteor.userId()){
       return (
         <div>
-          Please login to continue
-          <InternalLink dest='Login' text='Login' />
+          <div>
+            Please login to continue
+          </div>
+          <div>
+            <InternalLink dest='Login' text='Login' />
+          </div>
         </div>
       )
     }
   }
-  return <div>{props.content}</div>
+  return (
+    <div>
+      <div className='navig'>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <InternalLink dest='Home' text='Home'/>
+            </li>
+            <li className="nav-item">
+              <InternalLink dest='About' text='About'/>
+            </li>
+          </ul>
+        </div>
+        </nav>
+      </div>
+      {props.content}
+    </div>
+  )
 }
 
 export default App

@@ -60,13 +60,11 @@ export class BasicButton extends React.Component{
   render(){
     const {text, onClick} = this.props;
     return (
-      <div>
-        <button type="submit" style={this.props.style} 
-        className="btn btn-primary"
-        onClick={() => onClick()}>
-          {text || 'Submit'}
-        </button>
-      </div>
+      <button type="submit" style={this.props.style} 
+      className="btn btn-primary"
+      onClick={() => onClick()}>
+        {text || 'Submit'}
+      </button>
     )
   }
 }
