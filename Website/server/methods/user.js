@@ -1,4 +1,5 @@
 import {Meteor} from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base'
 
 Meteor.methods({
   'user.create'(username, password){ //DO NOT CALL THIS FROM CLIENT
@@ -11,5 +12,5 @@ Meteor.methods({
   },
   'user.created'(username){
     console.log('User created:', username);
-  }
+  },
 });

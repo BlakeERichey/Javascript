@@ -21,7 +21,10 @@ body {
 .navig{
   background-color: rgba(49,84,129,.3);
 }
- 
+
+.dropdown-menu{
+  background-color: rgba(49,84,129,1);
+}
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -38,6 +41,11 @@ header {
  
 #login-buttons {
   display: block;
+}
+
+a {
+  font-family: sans-serif;
+  color: white;
 }
  
 h1 {

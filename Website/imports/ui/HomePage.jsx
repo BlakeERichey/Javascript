@@ -6,9 +6,6 @@ const HomePage = () => {
   return (
     <div>
       Greetings! Thanks for visiting my page!
-      <div></div>
-      <InternalLink dest='Login' text='Login' />
-      <InternalLink dest='CreateUser' text='Create User'/>
     </div>
   )
 }

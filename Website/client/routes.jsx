@@ -3,11 +3,12 @@ import { mount }      from 'react-mounter';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import BasicLayout    from '/imports/layouts/BasicLayout.jsx';
 
-import HomePage  from '/imports/ui/HomePage.jsx';
-import AboutPage from '/imports/ui/AboutPage.jsx';
-import Login     from '/client/components/login.jsx';
-import Logout    from '/client/components/logout.jsx';
-import CreateUser from '/client/components/accounts/accounts.create.user.jsx';
+import HomePage     from '/imports/ui/HomePage.jsx';
+import AboutPage    from '/imports/ui/AboutPage.jsx';
+import Login        from '/client/components/login.jsx';
+import Logout       from '/client/components/logout.jsx';
+import GoblinSlayer from '/client/components/goblinslayer/goblin.slayer.jsx';
+import CreateUser   from '/client/components/accounts/accounts.create.user.jsx';
 
 FlowRouter.route('/', {
   name: 'Home',
@@ -42,6 +43,16 @@ FlowRouter.route('/logout', {
   action(){
     mount( BasicLayout, {
       content: <Logout />,
+      auth: true
+    })
+  }
+})
+
+FlowRouter.route('/goblinslayer', {
+  name: 'GoblinSlayer',
+  action(){
+    mount( BasicLayout, {
+      content: <GoblinSlayer />,
       auth: true
     })
   }

@@ -1,8 +1,8 @@
 import {Meteor} from 'meteor/meteor';
 
-export function logout(){
+export function logout(callback){
   console.log('Logging out.')
-  Meteor.logout();
+  Meteor.logout(callback);
 }
 
 export function login(username, password, dest){
@@ -16,6 +16,8 @@ export function login(username, password, dest){
   })
 }
 
+//l: list
+//d: delimeter
 export function listToString(l,d){
-  return l.reduce((a,v)=>a+(v&&((typeof(v) === 'string' && v.length) || typeof(v)==='number')?((d?d:' - ')+v):''),'a')
+  return l.reduce((a,v)=>a+(v&&((typeof(v) === 'string' && v.length) || typeof(v)==='number')?((d?d:' - ')+v):''),'')
 }
