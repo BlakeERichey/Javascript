@@ -15,3 +15,7 @@ export function login(username, password, dest){
     }
   })
 }
+
+export function listToString(l,d){
+  return l.reduce((a,v)=>a+(v&&((typeof(v) === 'string' && v.length) || typeof(v)==='number')?((d?d:' - ')+v):''),'a')
+}
