@@ -87,3 +87,25 @@ export class InternalLink extends React.Component{
     FlowRouter.go(dest, {});
   }
 }
+
+export class BasicInputRow extends React.Component{
+  render(){
+    const {name, width, ...passProps} = this.props;
+    return (
+      <div style={{width}}>
+        <table>
+          <tbody>
+            <tr>
+              <td className='fieldTitle'>
+                {name}
+              </td>
+              <td width='100%'>
+                <BasicInput {...passProps} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}

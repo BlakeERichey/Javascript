@@ -129,12 +129,26 @@ li.private {
   border-color: #ddd;
 }
 
+table{
+  width: 100%;
+}
+
 td.center{
   text-align: center;
 }
 
 td.right{
   text-align: right;
+}
+
+td.fieldTitle{
+  white-space: nowrap;
+  font-family: sans-serif;
+  font-weight: bold;
+  width: 20%;
+  font-size: 20px;
+  padding-left: 50px;
+  padding-right: 30px;
 }
  
 header .hide-completed {
