@@ -3,10 +3,12 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export class BasicInput extends React.Component{
   render(){
-    let {placeholder} = this.props;
+    let {placeholder, isNum, type} = this.props;
+
+    if(isNum       ){ type = 'number'; }
     if(!placeholder){ placeholder = 'Default Input' }
     return (
-      <input ref='basicInput' type="text"
+      <input ref='basicInput' type={type || "text"}
         className="form-control" 
         placeholder={placeholder}
         onChange={this.onChange.bind(this)}
@@ -91,8 +93,12 @@ export class InternalLink extends React.Component{
 export class BasicInputRow extends React.Component{
   render(){
     const {name, width, ...passProps} = this.props;
+    let   {paddingBottom, paddingTop} = this.props;
+
+    if(!paddingBottom){ paddingBottom = '15px'; }
+
     return (
-      <div style={{width}}>
+      <div style={{width, paddingBottom, paddingTop}}>
         <table>
           <tbody>
             <tr>

@@ -3,14 +3,16 @@ import {BasicButton} from '/imports/ui/input.jsx';
 
 class DiceRoller extends React.Component{
   constructor(){super();
-    this.state={};
+    this.state={
+      lastRolls: [],
+    };
   }
 
   render(){
-    const {lastRoll} = this.state;
+    const {lastRolls} = this.state;
     const dice = [2,3,4,6,8,10,12,20];
     return(
-      <div style={{margin: '30px'}}>
+      <div style={{marginRight: '30px'}}>
           <div className='panel'>
             <table style={{width: '100%'}}>
               <tbody>
@@ -37,14 +39,30 @@ class DiceRoller extends React.Component{
               </tbody>         
             </table>
             <hr/>
-            <div style={{textAlign: 'center'}}>{lastRoll}</div>
+            <div style={{textAlign: 'center'}}>
+              {lastRolls && lastRolls.map((roll, i) => {
+                return(
+                  <div key={i}>
+                    {roll}
+                  </div>
+                )
+              })}
+            </div>
           </div>
       </div>
     )
   }
 
   roll(sides){
-    this.setState({lastRoll: Math.floor(Math.random()*sides +1)});
+    const {lastRolls} = this.state;
+    const f = () => Math.floor(Math.random()*sides +1); //roll
+    if(lastRolls){
+      if(lastRolls.length>10){ lastRolls.pop(); }
+      lastRolls.unshift(f());
+    }else{
+      lastRolls.push(f());
+    }
+    this.setState({lastRolls});
   }
 }
 export default DiceRoller;

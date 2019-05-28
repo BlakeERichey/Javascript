@@ -145,6 +145,8 @@ td.fieldTitle{
   white-space: nowrap;
   font-family: sans-serif;
   font-weight: bold;
+  min-width: 250px;
+  max-width: 250px;
   width: 20%;
   font-size: 20px;
   padding-left: 50px;
