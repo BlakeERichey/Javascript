@@ -19,5 +19,6 @@ export function login(username, password, dest){
 //l: list
 //d: delimeter
 export function listToString(l,d){
-  return l.reduce((a,v)=>a+(v&&((typeof(v) === 'string' && v.length) || typeof(v)==='number')?((d?d:' - ')+v):''),'')
+  return l.reduce((a,v)=>a+(v&&((typeof(v) === 'string' && v.length) 
+    || typeof(v)==='number')?(a?((d?d:' - ')+v):v):''),'')
 }

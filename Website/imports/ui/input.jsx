@@ -17,13 +17,15 @@ export class BasicInput extends React.Component{
   }
 
   getValue(){
+    const {isNum} = this.props;
+    if(isNum){ return Number(this.refs.basicInput.value); }
     return this.refs.basicInput.value;
   }
 
   onChange(){
     const{onChange} = this.props;
     if(onChange){
-      onChange(this.refs.basicInput.value);
+      onChange(this.getValue());
     }
   }
 }
@@ -98,7 +100,7 @@ export class BasicInputRow extends React.Component{
     if(!paddingBottom){ paddingBottom = '15px'; }
 
     return (
-      <div style={{width, paddingBottom, paddingTop}}>
+      <div style={{width:width || '100%', paddingBottom, paddingTop}}>
         <table>
           <tbody>
             <tr>
@@ -111,6 +113,28 @@ export class BasicInputRow extends React.Component{
             </tr>
           </tbody>
         </table>
+      </div>
+    )
+  }
+}
+
+export class BasicSingleSelect extends React.Component{
+  render(){
+    const {name, vals, width, style, defaultValue} = this.props;
+    return(
+      <div style={style || {width: width || '100%'}}>
+        <form>
+          <div className="form-group">
+            <label htmlFor="basicSelect">{name}</label>
+            <select className="form-control" id="basicSelect" defaultValue={defaultValue}>
+              {vals.map(val => {
+                return(
+                  <option key={val}>{val}</option>
+                )
+              })}
+            </select>
+          </div>
+        </form>
       </div>
     )
   }
