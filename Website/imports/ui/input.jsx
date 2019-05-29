@@ -120,13 +120,15 @@ export class BasicInputRow extends React.Component{
 
 export class BasicSingleSelect extends React.Component{
   render(){
-    const {name, vals, width, style, defaultValue} = this.props;
+    const {name, vals, width, style, defaultValue, onChange} = this.props;
     return(
       <div style={style || {width: width || '100%'}}>
         <form>
           <div className="form-group">
             <label htmlFor="basicSelect">{name}</label>
-            <select className="form-control" id="basicSelect" defaultValue={defaultValue}>
+            <select className="form-control" ref="basicSelect" 
+              defaultValue={defaultValue}
+              onChange={this.onChange.bind(this)}>
               {vals.map(val => {
                 return(
                   <option key={val}>{val}</option>
@@ -137,5 +139,18 @@ export class BasicSingleSelect extends React.Component{
         </form>
       </div>
     )
+  }
+
+  getValue(){
+    const {isNum} = this.props;
+    if(isNum){ return(Number(this.refs.basicSelect.value)) }
+    return (this.refs.basicSelect.value)
+  }
+
+  onChange(){
+    const {onChange} = this.props;
+    if(onChange){
+      onChange(this.getValue());
+    }
   }
 }

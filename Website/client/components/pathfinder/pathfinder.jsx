@@ -4,7 +4,7 @@ import DiceRoller   from '/client/components/pathfinder/pathfinder.diceroller.js
 
 class Pathfinder extends React.Component{
   constructor(){super();
-    this.state={};
+    this.state={size: 'Medium'};
   }
 
   render(){
@@ -128,7 +128,7 @@ class Pathfinder extends React.Component{
           <BasicSingleSelect name='Size' style={{paddingLeft:'25%'}} defaultValue='Medium'
             vals={
               ['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan', 'Colossal']
-            }
+            } onChange={(size) => this.setState({size})}
           />
 
           <p className='header' style={{marginTop: '20px'}}>Defense</p>
