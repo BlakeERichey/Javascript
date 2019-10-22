@@ -10,6 +10,7 @@ import Logout       from '/client/components/logout.jsx';
 import Pathfinder   from '/client/components/pathfinder/pathfinder.jsx';
 import GoblinSlayer from '/client/components/goblinslayer/goblin.slayer.jsx';
 import CreateUser   from '/client/components/accounts/accounts.create.user.jsx';
+import QnA          from '/client/components/aa/qna.jsx';
 
 FlowRouter.route('/', {
   name: 'Home',
@@ -74,6 +75,15 @@ FlowRouter.route('/create/user', {
   action(){
     mount( BasicLayout, {
       content: <CreateUser />,
+    })
+  }
+})
+
+FlowRouter.route('/aa/qna', {
+  name: 'QnA',
+  action(){
+    mount( BasicLayout, {
+      content: <QnA />,
     })
   }
 })

@@ -6,7 +6,7 @@ export class BasicInput extends React.Component{
     let {placeholder, isNum, type} = this.props;
 
     if(isNum       ){ type = 'number'; }
-    if(!placeholder){ placeholder = 'Default Input' }
+    if(!placeholder){ placeholder = '' }
     return (
       <input ref='basicInput' type={type || "text"}
         className="form-control" 
