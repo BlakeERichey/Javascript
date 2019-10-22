@@ -31,7 +31,7 @@ class DiceRoller extends React.Component{
                         {sides}
                       </td>
                       <td className='right'>
-                        <BasicButton text='Roll' type='sm' onClick={this.roll.bind(this, sides)}/>
+                        <BasicButton style={{marginBottom: '5px'}}text='Roll' type='sm' onClick={this.roll.bind(this, sides)}/>
                       </td>
                     </tr>
                   )

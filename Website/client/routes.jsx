@@ -3,6 +3,7 @@ import { mount }      from 'react-mounter';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import BasicLayout    from '/imports/layouts/BasicLayout.jsx';
 
+import Todos        from '/client/todo.jsx';
 import HomePage     from '/imports/ui/HomePage.jsx';
 import AboutPage    from '/imports/ui/AboutPage.jsx';
 import Login        from '/client/components/login.jsx';
@@ -84,6 +85,16 @@ FlowRouter.route('/aa/qna', {
   action(){
     mount( BasicLayout, {
       content: <QnA />,
+    })
+  }
+})
+
+FlowRouter.route('/todo', {
+  name: 'todo',
+  action(){
+    mount( BasicLayout, {
+      content: <Todos />,
+      auth: true,
     })
   }
 })
