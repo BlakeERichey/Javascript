@@ -90,6 +90,7 @@ export function getAnswer(question, phraseMatch=true){
   if(freq){
     similarity = findSimilarity(keywords, freq, phraseMatch, invind, qna, _2gramInvInd);
     const maxSim = similarity.reduce((a, val) => a?(a.tfIdf>val.tfIdf?a:val):val);
+    let certainty = 1;
     if(!phraseMatch){
       top_qs = []
       similarity.forEach(q => {
@@ -99,17 +100,19 @@ export function getAnswer(question, phraseMatch=true){
       });
       if(top_qs.length > 1){
         console.log('Uncertain Results', top_qs);
+        certainty = 1 / top_qs.length
       }
     }
 
     answer = qna[maxSim._id].a
     console.log('Question', question, 'Answer', answer);
-    return answer
+    return {answer, certainty}
   }else if(phraseMatch){
     console.log('Searching for 1gram');
     return getAnswer(question, !phraseMatch);
   }else{
     console.log('Never before seen question');
+    return {}
   }
 }
 

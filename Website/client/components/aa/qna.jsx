@@ -31,11 +31,15 @@ class Qna extends React.Component{
           let nps = document.getElementsByTagName('input');
           for(let i = 0; i < lbls.length; i++){
             let question = lbls[i].textContent
-            let answer = getAnswer(question);
+            let {answer, certainty} = getAnswer(question);
             console.log(answer);
             if(answer){
               nps[i].value=answer;
-              nps[i].backgroundColor='#00FF00'
+              if(certainty){
+                nps[i].style.backgroundColor='#00FF00'
+              }else{
+                nps[i].style.backgroundColor='#ff0000'
+              }
             }
           }
         }}/>
