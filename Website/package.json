@@ -10,6 +10,8 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "bcrypt": "^3.0.6",
+    "file-system": "^2.2.2",
+    "fs": "0.0.1-security",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

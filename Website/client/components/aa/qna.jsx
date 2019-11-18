@@ -1,5 +1,6 @@
 import React from 'react';
-import {BasicInputRow, BasicInput, BasicSingleSelect} from '/imports/ui/input.jsx';
+import {BasicInputRow, BasicInput, BasicButton} from '/imports/ui/input.jsx';
+import {getAnswer} from '/imports/functions/nli.js'
 
 class Qna extends React.Component{
   constructor(){super();}
@@ -17,6 +18,11 @@ class Qna extends React.Component{
         <BasicInput onChange={() => console.log()}/>
         <label>If you could be any animal, which would you choose?</label>
         <BasicInput onChange={() => console.log()}/>
+        
+        <BasicButton onClick={() => {
+          console.log(getAnswer('How many years have you worked in this industry?'));
+        }}/>
+      
       </div>
     )
   }
