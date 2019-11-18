@@ -7,7 +7,6 @@ function findKeywords(tokenized, phraseMatch=false, invind={}, qna={}, _2gramInv
 
   if(!phraseMatch){
     tokenized.forEach(word =>{
-      console.log(word);
       let docFreq = invind[word]?invind[word].length:0;
       dfs.push({key: word, docFreq});
     });
@@ -15,14 +14,12 @@ function findKeywords(tokenized, phraseMatch=false, invind={}, qna={}, _2gramInv
     _2gram = []
     for(let i = 0; i<tokenized.length-1; i++){
       let phrase = tokenized[i] + ' ' + tokenized[i+1];
-      console.log(phrase);
       let docFreq = _2gramInvInd[phrase]?_2gramInvInd[phrase].length:0;
       dfs.push({key: phrase, docFreq});
     }
   }
 
   const maxFreq = dfs.reduce((a, val) => a?(a.docFreq>val.docFreq?a:val):val, 0);
-  console.log('maxFreq', maxFreq);
   const keywords = []
   dfs.forEach((ele, i) => {
     if(dfs[i].docFreq === maxFreq.docFreq){
@@ -30,7 +27,6 @@ function findKeywords(tokenized, phraseMatch=false, invind={}, qna={}, _2gramInv
     }
   })
 
-  console.warn(dfs);
   return keywords
 }
 
@@ -46,7 +42,6 @@ function findSimilarity(keywords, freq, phraseMatch=false, invind={}, qna={}, _2
     const idf = 1 / freq;
     if(!phraseMatch){
       const questions = invind[kw.key];
-      console.log('kw', kw, 'questions', questions);
       questions.forEach(_id => {
         let qst = qna[_id].q;
         qst = stemTokenize(qst);
@@ -83,10 +78,10 @@ export function getAnswer(question, phraseMatch=true){
   import * as _2gramInvInd from '/imports/2gram.json';
   
   let tokenized = stemTokenize(question);
+  console.warn('Stemmed question:', tokenized);
   keywords = findKeywords(tokenized, phraseMatch, invind, qna, _2gramInvInd);
-  console.log(keywords);
+  console.log('Question:', question, 'Keywords:', keywords);
   freq = keywords && keywords.length?keywords[0].docFreq:0;
-  console.log(phraseMatch, freq);
   if(freq){
     similarity = findSimilarity(keywords, freq, phraseMatch, invind, qna, _2gramInvInd);
     const maxSim = similarity.reduce((a, val) => a?(a.tfIdf>val.tfIdf?a:val):val);
@@ -105,7 +100,7 @@ export function getAnswer(question, phraseMatch=true){
     }
 
     answer = qna[maxSim._id].a
-    console.log('Question', question, 'Answer', answer);
+    console.log('Question:', question, 'Answer:', answer);
     return {answer, certainty}
   }else if(phraseMatch){
     console.log('Searching for 1gram');

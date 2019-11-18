@@ -238,9 +238,7 @@ export function stemTokenize(sent){
 
   let punctuationless = sent.replace(/[.,\/#!$%\^&\*;:{}=?\-_`~()]/g,"");
   punctuationless = punctuationless.replace(/\s{2,}/g," ");
-  console.log(punctuationless);
   let stripped = punctuationless.match(/\S+/g);
-  console.log(stripped);
   const stemmed = [];
   stripped.forEach(word => {
     stemmed.push(stemmer(word.toLowerCase()));
@@ -252,8 +250,7 @@ export function stemTokenize(sent){
       i--;
     }
   }
-
-  console.error(sent, stemmed);
+  
   return stemmed;
 }
 
