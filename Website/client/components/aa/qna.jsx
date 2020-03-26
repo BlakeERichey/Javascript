@@ -8,42 +8,34 @@ class Qna extends React.Component{
   render(){
     return(
       <div>
-        <label>What are your hobbies?</label>
+        <label>First Name</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>What hobbies do you have?</label>
+        <label>Middle Name</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>What is your name?</label>
+        <label>Last Name</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>What is your first name</label>
+        <label>Address</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>What skills do you have?</label>
+        <label>County</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>What are your skills?</label>
+        <label>Zip Code</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>How many years have you worked in this industry?</label>
+        <label>Phone Number</label>
         <BasicInput onChange={() => console.log()}/>
-        <label>If you could be any animal, which would you choose?</label>
+        <label>Email</label>
         <BasicInput onChange={() => console.log()}/>
-        
-        <BasicButton text='Autofill' onClick={() => {
-          let lbls = document.getElementsByTagName('label');
-          console.log(lbls);
-          let nps = document.getElementsByTagName('input');
-          for(let i = 0; i < lbls.length; i++){
-            let question = lbls[i].textContent
-            let {answer, certainty} = getAnswer(question);
-            console.log(answer);
-            if(answer){
-              nps[i].value=answer;
-              if(certainty){
-                nps[i].style.backgroundColor='#00FF00'
-              }else{
-                nps[i].style.backgroundColor='#ff0000'
-              }
-            }
-          }
-        }}/>
-      
+        <label>What skill do you have</label>
+        <BasicInput onChange={() => console.log()}/>
+        <label>Where do you work?</label>
+        <BasicInput onChange={() => console.log()}/>
+        <label>What is your job title?</label>
+        <BasicInput onChange={() => console.log()}/>
+        <br/>
+        <br/>
+        <label>What are you areas of expertise, skills, or relevant courses?</label>
+        <BasicInput onChange={() => console.log()}/>
+        <br/>
+        <br/>
       </div>
     )
   }
