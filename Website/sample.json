@@ -1,0 +1,11 @@
+{
+  "owner": "Nx2J3eMG2MB7RD7gv",
+  "nodeId": "D2jREEfhuhXc3L6GN",
+  "sensors": [
+    { "_id": 0, "desc": "Rice",  "weight": 0.625 },
+    { "_id": 1, "desc": "Corn",  "weight": 1.250 },
+    { "_id": 2, "desc": "Bolts", "weight": 0.000 },
+    { "_id": 3, "desc": "Honey", "weight": 0.500 }
+  ],
+  "ttl": 10
+}

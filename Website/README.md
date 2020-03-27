@@ -10,4 +10,5 @@ Next You Will Want to Get Routes Set up. To Do so You Need Flowrouter
 To use this you will need to run  
 `meteor npm install` this installs missing dependencies  
 `meteor add kadira:flow-router` this specifically installs flowrouter  
+`meteor add aldeed:simple-schema` Installs SimpleSchema  
 `meteor` runs app  

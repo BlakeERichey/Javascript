@@ -25,3 +25,5 @@ accounts-base
 accounts-password
 session
 http
+meteorhacks:picker
+aldeed:simple-schema
