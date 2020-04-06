@@ -13,32 +13,24 @@ Meteor.startup(() => {
   // users = Meteor.users.find().forEach((user) => {
   //   console.log(user);
   // });
-  // blake ='Nx2J3eMG2MB7RD7gv';
-  // admin = 'EytZ6GCD7pEkvfk29';
-  // userId = blake;
-  // sensor = {
-  //   desc: 'This sensor is dedicated to measuring weight of honey.',
-  //   weight: 195,
-  //   threshold: 87
-  // };
 
-  // node = {
-  //   sensors: [sensor],
-  //   ttl: 300
-  // };
-
-  // Meteor.call('nven.addNode', userId, node, (err, res) => {
-  //   if(err){
-  //     console.log(err);
-  //   }else{
-  //     console.log('Nven Node Created Successully');
-  //   }
-  // })
-
-  // console.log('Documents');
-  // nven.find().forEach(pi => {
-  //   console.log(JSON.stringify(pi, null, 2));
-  // })
+  callFromClient = Meteor.bindEnvironment((userId, nodeObj, client) => {
+    Meteor.call('nven.updateFromClient', userId, nodeObj, (err, res) => {
+      if(err){
+        if(err.error == 'validation-error'){
+          client.writeHead(400);
+          client.end(`Error 400. Malformed Request.`);
+        }else{
+          console.log('Internal Server Error', err);
+          client.writeHead(500);
+          client.end(`Error 500. Internal Server Error.`);
+        }
+      }else{
+        client.writeHead(200);
+        client.end(JSON.stringify(res));
+      }
+    });
+  });
 
   // Listen to incoming HTTP requests (can only be used on the server).
   WebApp.connectHandlers.use('/nven', (req, res, next) => {
@@ -51,22 +43,15 @@ Meteor.startup(() => {
         let content = JSON.parse(body);
         try{//update node... potentially
           userId = content.owner;
+          
+          //form proper nodeObj
           nodeObj = content
-          delete nodeObj.owner //form proper nodeObj
+          delete nodeObj.owner 
+          nodeObj._id = nodeObj.nodeId
+          delete nodeObj.nodeId
 
-          // //Update
-          // Meteor.call('nven.updateNode', userId, nodeObj, (err, res) => {
-          //   if(err){
-          //     console.log('Internal Server Error', err);
-          //   }else{
-          //     res.writeHead(200);
-          //     res.end(`Hello world from: ${Meteor.release}`);
-          //   }
-          // });
-          content.ttl += 10;
-          doc = content
-          res.writeHead(200);
-          res.end(JSON.stringify(doc));
+          //Update
+          callFromClient(userId, nodeObj, res);
         }catch(malformedContent){
           throw malformedContent;
         }    
