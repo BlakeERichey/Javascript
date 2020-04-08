@@ -3,6 +3,7 @@ import { nven   }   from '/libs/collections.js';
 import nvenSchema   from '/libs/schemas/nven.js';
 import nodeSchema   from '/libs/schemas/node.js';
 import sensorSchema from '/libs/schemas/sensor.js';
+import {validUserCred} from '/imports/functions/common.js';
 
 Meteor.methods({
   'nven.addNode'(userId, nodeObj) {
@@ -18,6 +19,10 @@ Meteor.methods({
     //   sensors: [sensor],
     //   ttl: 300
     // };
+
+    if(!validUserCred(['admin'])){
+      throw new Meteor.Error('401', 'Forbidden access.')
+    }
 
     nodeObj._id = Random.id();
 
@@ -70,18 +75,28 @@ Meteor.methods({
   },
   'nven.updateFromClient'(userId, nodeObj){
     //Similar to updateNode but does not override time-to-live for packet sender
+    //Or descriptions of sensors
     nodeSchema.validate(nodeObj);
     
     modInfo = Object();
     doc = nven.findOne({owner: userId});
     if(doc){
       Object.assign(modInfo, doc);
+      
+      //Find node
       index = modInfo.nodes.findIndex(node => node._id === nodeObj._id);
+      
+      //update weights
       if(index !== -1){
         const ttl = modInfo.nodes[index].ttl;
         nodeObj.ttl = ttl;
-        modInfo.nodes[index] = nodeObj;
+        nodeObj.sensors = modInfo.nodes[index].sensors.map((ele, i) => {
+          ele.weight = nodeObj.sensors[i].weight;
+          return ele;
+        })
+        modInfo.nodes[index].sensors = nodeObj.sensors;
       }
+
       nvenSchema.validate(modInfo);
       nven.update({owner: userId}, {$set: modInfo});
       console.log('Updated Document.', JSON.stringify(modInfo, null, 2));

@@ -3,15 +3,12 @@ import { mount }      from 'react-mounter';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import BasicLayout    from '/imports/layouts/BasicLayout.jsx';
 
-import Todos        from '/client/todo.jsx';
+
 import HomePage     from '/imports/ui/HomePage.jsx';
-import AboutPage    from '/imports/ui/AboutPage.jsx';
 import Login        from '/client/components/login.jsx';
 import Logout       from '/client/components/logout.jsx';
-import Pathfinder   from '/client/components/pathfinder/pathfinder.jsx';
-import GoblinSlayer from '/client/components/goblinslayer/goblin.slayer.jsx';
 import CreateUser   from '/client/components/accounts/accounts.create.user.jsx';
-import QnA          from '/client/components/aa/qna.jsx';
+import Nven         from '/client/components/nven/nven.jsx';
 
 FlowRouter.route('/', {
   name: 'Home',
@@ -31,42 +28,12 @@ FlowRouter.route('/login', {
   }
 })
 
-FlowRouter.route('/about', {
-  name: 'About',
-  action(){
-    mount( BasicLayout, {
-      content: <AboutPage />,
-      auth: true
-    })
-  }
-})
-
-FlowRouter.route('/pathfinder', {
-  name: '/pathfinder',
-  action(){
-    mount( BasicLayout, {
-      content: <Pathfinder />,
-      auth: true
-    })
-  }
-})
-
 FlowRouter.route('/logout', {
   name: 'Logout',
   action(){
     mount( BasicLayout, {
       content: <Logout />,
-      auth: true
-    })
-  }
-})
-
-FlowRouter.route('/goblinslayer', {
-  name: 'GoblinSlayer',
-  action(){
-    mount( BasicLayout, {
-      content: <GoblinSlayer />,
-      auth: true
+      auth: ['user', 'admin']
     })
   }
 })
@@ -76,25 +43,17 @@ FlowRouter.route('/create/user', {
   action(){
     mount( BasicLayout, {
       content: <CreateUser />,
+      auth: ['admin']
     })
   }
 })
 
-FlowRouter.route('/aa/qna', {
-  name: 'QnA',
+FlowRouter.route('/nodes', {
+  name: 'Nven',
   action(){
     mount( BasicLayout, {
-      content: <QnA />,
-    })
-  }
-})
-
-FlowRouter.route('/todo', {
-  name: 'todo',
-  action(){
-    mount( BasicLayout, {
-      content: <Todos />,
-      auth: true,
+      content: <Nven />,
+      auth: ['user', 'admin']
     })
   }
 })

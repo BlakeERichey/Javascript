@@ -11,4 +11,5 @@ To use this you will need to run
 `meteor npm install` this installs missing dependencies  
 `meteor add kadira:flow-router` this specifically installs flowrouter  
 `meteor add aldeed:simple-schema` Installs SimpleSchema  
+`meteor add alanning:roles` Installs Roles  
 `meteor` runs app  

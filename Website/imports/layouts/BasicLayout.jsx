@@ -2,24 +2,23 @@ import React from 'react'
 import {Session} from 'meteor/session';
 
 import {InternalLink} from '/imports/ui/input.jsx';
-import {login, logout} from '/imports/functions/common.js';
+import {login, logout, validUserCred} from '/imports/functions/common.js';
 
 class BasicLayout extends React.Component{
   render(){
-    if(this.props.auth){
-      if(!Meteor.userId()){
-        return (
+    const roles = this.props.auth
+    if(!validUserCred(roles)){
+      return (
+        <div>
+          {this.navigationBar()}
           <div>
-            {this.navigationBar()}
-            <div>
-              Please login to continue
-            </div>
-            <div>
-              <InternalLink dest='Login' text='Login' />
-            </div>
+            Please login to continue
           </div>
-        )
-      }
+          <div>
+            <InternalLink dest='Login' text='Login' />
+          </div>
+        </div>
+      )
     }
     return (
       <div>
@@ -52,9 +51,20 @@ class BasicLayout extends React.Component{
     }
   }
 
+  showCreateUser(){
+    if(validUserCred(['admin'])){
+      return(
+        <div>
+          <div className="dropdown-divider"></div>
+          <a className="dropdown-item" onClick={()=>FlowRouter.go('CreateUser')}>Create User</a>
+        </div>
+      )
+    }
+  }
+
   navigationBar(){
     return(
-      <div className='navig'>
+      <div className='navig' style={{backgroundColor: '#b81914'}}>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
@@ -62,13 +72,7 @@ class BasicLayout extends React.Component{
               <InternalLink dest='Home' text='Home'/>
             </li>
             <li className="nav-item">
-              <InternalLink dest='About' text='About'/>
-            </li>
-            <li className="nav-item">
-              <InternalLink dest='/pathfinder' text='Pathfinder'/>
-            </li>
-            <li className="nav-item">
-              <InternalLink dest='GoblinSlayer' text='GoblinSlayer'/>
+              <InternalLink dest='Nven' text='Nodes'/>
             </li>
           </ul>
           <ul className="navbar-nav mr-auto" style={{float: 'right'}}>
@@ -78,8 +82,7 @@ class BasicLayout extends React.Component{
               </button>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 {this.loginToggle()}
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" onClick={()=>FlowRouter.go('CreateUser')}>Create User</a>
+                {this.showCreateUser()}
               </div>
             </li>
           </ul>

@@ -2,11 +2,18 @@ import { Meteor } from 'meteor/meteor';
 import { nven } from '/libs/collections.js';
 
 Meteor.startup(() => {
+  //Create user roles
+  Roles.createRole('admin', {unlessExists: true});
+  Roles.createRole('user', {unlessExists: true});
+
   Meteor.call('user.create', 'Admin','admin', (err, res) => {
     if(err){
     }else{
       console.log('res', res);
     }
+    doc = Meteor.users.findOne({username: 'Admin'});
+    console.log('Admin id:', doc._id);
+    Roles.addUsersToRoles(doc._id, 'admin', Roles.GLOBAL_GROUP);
   });
 
   // console.log('Users:');
@@ -18,6 +25,7 @@ Meteor.startup(() => {
     Meteor.call('nven.updateFromClient', userId, nodeObj, (err, res) => {
       if(err){
         if(err.error == 'validation-error'){
+          console.log(err);
           client.writeHead(400);
           client.end(`Error 400. Malformed Request.`);
         }else{
