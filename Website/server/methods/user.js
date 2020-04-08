@@ -10,8 +10,10 @@ Meteor.methods({
 
     return res;
   },
-  'user.created'(username){
-    console.log('User created:', username);
+  'user.created'(username, role){
+    console.log('User created:', username, "\nRole:", role);
+    doc = Meteor.users.findOne({username})
+    Roles.addUsersToRoles(doc._id, role || 'user', Roles.GLOBAL_GROUP);
   },
   'user.set.password'(id, newPassword){ //DO NOT CALL THIS FROM CLIENT
     Accounts.setPassword(id, newPassword);

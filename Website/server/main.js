@@ -41,7 +41,7 @@ Meteor.startup(() => {
   });
 
   // Listen to incoming HTTP requests (can only be used on the server).
-  WebApp.connectHandlers.use('/nven', (req, res, next) => {
+  WebApp.connectHandlers.use('/nven-api', (req, res, next) => {
     var body = '';
     req.on('readable', () => {
       body += req.read();

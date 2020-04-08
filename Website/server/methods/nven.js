@@ -70,7 +70,7 @@ Meteor.methods({
       }
       nvenSchema.validate(modInfo);
       nven.update({_id: userId}, {$set: modInfo});
-      console.log('Updated Document.', modInfo);
+      console.log('Updated Nven Document.', modInfo);
     }
   },
   'nven.updateFromClient'(userId, nodeObj){
@@ -99,7 +99,7 @@ Meteor.methods({
 
       nvenSchema.validate(modInfo);
       nven.update({owner: userId}, {$set: modInfo});
-      console.log('Updated Document.', JSON.stringify(modInfo, null, 2));
+      console.log('Updated Nven Document.', JSON.stringify(modInfo, null, 2));
       doc = nven.findOne({owner: userId});
     }else{
       throw new Error('User called for node update without node permissions.', userId);

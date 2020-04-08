@@ -3,14 +3,14 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export class BasicInput extends React.Component{
   render(){
-    let {placeholder, isNum, type} = this.props;
+    let {placeholder, isNum, type, ...passProps} = this.props;
 
     if(isNum       ){ type = 'number'; }
     if(!placeholder){ placeholder = '' }
     return (
       <input ref='basicInput' type={type || "text"}
         className="form-control" 
-        placeholder={placeholder}
+        placeholder={placeholder} {...passProps}
         onChange={this.onChange.bind(this)}
         />
     )
@@ -152,5 +152,24 @@ export class BasicSingleSelect extends React.Component{
     if(onChange){
       onChange(this.getValue());
     }
+  }
+}
+
+export class BasicButtonCollapse extends React.Component{
+  render(){
+    const {text, width, style, show, name, children} = this.props;
+    
+    return(
+      <div style={style || {width: width || '20%'}}>
+        <button className="btn btn-primary" type="button" 
+          data-toggle="collapse" data-target={`#${name}`}
+          aria-expanded='false' aria-controls={name} style={{width: '100%'}}> 
+          {text}
+        </button>
+        <div className={`collapse${show?' in':''}`} id={name}>
+          {children}
+        </div>
+      </div>
+    )
   }
 }

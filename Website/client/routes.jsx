@@ -53,7 +53,7 @@ FlowRouter.route('/nodes', {
   action(){
     mount( BasicLayout, {
       content: <Nven />,
-      auth: ['user', 'admin']
+      auth: ['user']
     })
   }
 })
