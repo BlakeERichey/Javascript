@@ -7,14 +7,38 @@ import {
 
 class Nven extends React.Component{
   constructor(){super();
-    this.state = {};
+    this.state = {
+      updating: undefined,
+      showing: undefined
+    };
   }
 
   componentWillMount(){
     //Autoupdate when database updates
     Tracker.autorun(() => {
       const doc = nven.findOne({owner: Meteor.userId()})
-      this.setState({doc})
+      const state = {doc: doc}
+      
+      //Assign Nven state with initially no sensors being updated or showing
+      const {nodes} = doc;
+      if(nodes){
+        if(!this.state.updating){
+          const updatingSensors = nodes.map(node => {
+            return Array(node.sensors.length).fill(false)
+          })
+          const updating = {
+            nodes: updatingSensors
+          }
+          
+          Object.assign(state, {updating})
+        }
+
+        if(!this.state.showing){
+          const showing = Array(nodes.length).fill(false)
+          Object.assign(state, {showing})
+        }
+      }
+      this.setState(state)
     });
   }
 
@@ -22,12 +46,13 @@ class Nven extends React.Component{
     const {doc} = this.state;
     const {nodes} = doc;
     console.log('Doc:', doc, 'Nodes:', nodes)
+    console.log('State:', this.state)
     return(
       <div>
         {nodes.map((node, i) => {
           return(
             <div key={Random.id()}>
-              {this.nodeHtml(node, 'Node '+i)}
+              {this.nodeHtml(node, 'Node', i)}
             </div>
           )
         })}
@@ -40,11 +65,21 @@ class Nven extends React.Component{
     )
   }
 
-  nodeHtml(node, name){
+  nodeHtml(node, name, nodeIndex){
+    const {doc} = this.state
+    const {nodes} = this.state.updating;
+    const show = this.state.showing[nodeIndex];
+    const sensors = nodes[nodeIndex];
     return(
       <div>
-        <BasicButtonCollapse text={name} name={Random.id()} show={false} 
-          style={{width: '80%', marginLeft: '10%'}}>
+        <BasicButtonCollapse text={`${name} ${nodeIndex}`} name={Random.id()} 
+          show={show} style={{width: '80%', marginLeft: '10%'}}
+          onClick={() => {
+            const newState = this.state
+            newState.showing[nodeIndex] = !newState.showing[nodeIndex]
+            this.setState(newState)}
+          }
+        >
           
           <div style={{paddingTop: '10px'}}>
             {node.sensors.map((sensor, i) => {
@@ -59,34 +94,81 @@ class Nven extends React.Component{
                           Description
                         </td>
                         <td width='90%'>
-                          {sensor.desc}
+                          {sensors[i]?
+                            <BasicInput defaultValue={sensor.desc} 
+                              onChange={(desc) => {
+                                doc.nodes[nodeIndex].sensors[i].desc = desc
+                              }}
+                            />
+                          :sensor.desc}
                         </td>
                         <td>
-                          <BasicButton text='Edit'/>
+                          <BasicButton text={sensors[i]?'Done':'Edit'}
+                            onClick={() => {
+                              nodes[nodeIndex][i] = !sensors[i]
+                              this.setState({updating: {nodes}})
+                              this.save(nodeIndex);
+                            }}/>
                         </td>
                       </tr>
+
                       <tr>
-                        <td className='fieldTitle'>
-                          Weight (in grams)
+                        <td className='fieldTitle' 
+                          style={{backgroundColor: sensor.weight<sensor.threshold?'red':null}}>
+                            Weight
                         </td>
                         <td width='100%'>
-                          {sensor.weight}
+                          {sensor.weight} grams
                         </td>
                       </tr>
+
+                      <tr>
+                        <td className='fieldTitle'>
+                          Threshold
+                        </td>
+                        <td width='90%'>
+                          {sensors[i]?
+                            <BasicInput defaultValue={sensor.threshold} 
+                              onChange={(threshold) => {
+                                doc.nodes[nodeIndex].sensors[i].threshold = Number(threshold)
+                              }}
+                            />
+                          :`${sensor.threshold} grams`}
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+
                     </tbody>
                   </table>
                   <br/>
-                  
+
                 </div>
               )
             })}
 
-            <BasicButton text='Save' style={{float: 'right', marginBottom: '10px'}} onClick={() => {}}/>
+            <BasicButton text='Save' style={{float: 'right', marginBottom: '10px'}} 
+              onClick={() => {this.save(nodeIndex)}}/>
           </div>
 
         </BasicButtonCollapse>
       </div>
     )
+  }
+
+  save(nodeIndex){
+    Meteor.call('nven.update', this.state.doc, (err, res) => {
+      if(err){
+        alert(err);
+      }else{
+        const {updating} = this.state;
+        if(updating){
+          updating.nodes[nodeIndex].forEach((sensor, i) => {
+            updating.nodes[nodeIndex][i] = false;
+          })
+        }
+      }
+    })
   }
 }
 export default Nven;

@@ -157,13 +157,14 @@ export class BasicSingleSelect extends React.Component{
 
 export class BasicButtonCollapse extends React.Component{
   render(){
-    const {text, width, style, show, name, children} = this.props;
+    const {text, width, style, show, name, children, onClick} = this.props;
     
     return(
       <div style={style || {width: width || '20%'}}>
         <button className="btn btn-primary" type="button" 
           data-toggle="collapse" data-target={`#${name}`}
-          aria-expanded='false' aria-controls={name} style={{width: '100%'}}> 
+          aria-expanded='false' aria-controls={name} style={{width: '100%'}}
+          onClick={onClick?() => onClick():null}> 
           {text}
         </button>
         <div className={`collapse${show?' in':''}`} id={name}>

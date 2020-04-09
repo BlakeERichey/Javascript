@@ -6,7 +6,7 @@ import sensorSchema from '/libs/schemas/sensor.js';
 import {validUserCred} from '/imports/functions/common.js';
 
 Meteor.methods({
-  'nven.addNode'(userId, nodeObj) {
+  'nven.addNode'(userId, numSensors) {
     //Adds a node to a user in database. Assigns node an _id.
     //Sample nodeObj:
     // sensor = {
@@ -24,8 +24,11 @@ Meteor.methods({
       throw new Meteor.Error('401', 'Forbidden access.')
     }
 
-    nodeObj._id = Random.id();
-
+    const _id = Random.id();
+    const sensors = Array(numSensors).fill({desc: '', weight: 0, threshold: 0});
+    nodeObj = {
+      _id, sensors, ttl: 300
+    }
 
     //Validate Schema
     nodeObj.sensors.forEach(sensor => {
@@ -41,7 +44,7 @@ Meteor.methods({
       Object.assign(modInfo, doc);
       modInfo.nodes.push(nodeObj);
       nvenSchema.validate(modInfo);
-      nven.update({_id: userId}, {$set: modInfo});
+      nven.update({owner: userId}, {$set: modInfo});
       console.log('Updated Document.', modInfo);
 
     }else{ //if document doesnt exist, make one
@@ -56,9 +59,28 @@ Meteor.methods({
       console.log('New Docuement Created:', newDoc);
     }
   },
+  'nven.update'(doc){
+    nvenSchema.validate(doc);
+
+    const {nodes, owner} = doc
+    nodes.forEach(node => {
+      Meteor.call('nven.updateNode', owner, node, (err, res) => {
+        if(err){
+          console.log('Nven update error:', err)
+          throw err
+        }else{
+          console.log('Updated Nven Document.', JSON.stringify(doc, null, 2));
+        }
+      })
+    })
+  },
   'nven.updateNode'(userId, nodeObj){
     //Updates node object if it is found in database. 
+    //Validate Schema
     nodeSchema.validate(nodeObj);
+    nodeObj.sensors.forEach(sensor => {
+      sensorSchema.validate(sensor);
+    })
     
     doc = nven.findOne({owner: userId});
     if(doc){
@@ -68,19 +90,26 @@ Meteor.methods({
       if(index !== -1){
         modInfo.nodes[index] = nodeObj;        
       }
+
       nvenSchema.validate(modInfo);
-      nven.update({_id: userId}, {$set: modInfo});
-      console.log('Updated Nven Document.', modInfo);
+      nven.update({owner: userId}, modInfo);
     }
   },
-  'nven.updateFromClient'(userId, nodeObj){
+  'nven.updateFromClient'(nodeObj){
     //Similar to updateNode but does not override time-to-live for packet sender
     //Or descriptions of sensors
+    //Validate Schema
     nodeSchema.validate(nodeObj);
+    nodeObj.sensors.forEach(sensor => {
+      if(!sensor.hasOwnProperty('weight')){
+        throw new Meteor.Error('validation-error', 'Sensor must contain weight attribute');
+      }
+    })
     
     modInfo = Object();
-    doc = nven.findOne({owner: userId});
+    doc = nven.findOne({'nodes._id': nodeObj._id});
     if(doc){
+      const userId = doc.owner;
       Object.assign(modInfo, doc);
       
       //Find node
@@ -99,7 +128,7 @@ Meteor.methods({
 
       nvenSchema.validate(modInfo);
       nven.update({owner: userId}, {$set: modInfo});
-      console.log('Updated Nven Document.', JSON.stringify(modInfo, null, 2));
+      console.log('Updated From Client Document.', doc._id);
       doc = nven.findOne({owner: userId});
     }else{
       throw new Error('User called for node update without node permissions.', userId);

@@ -21,8 +21,8 @@ Meteor.startup(() => {
   //   console.log(user);
   // });
 
-  callFromClient = Meteor.bindEnvironment((userId, nodeObj, client) => {
-    Meteor.call('nven.updateFromClient', userId, nodeObj, (err, res) => {
+  callFromClient = Meteor.bindEnvironment((nodeObj, client) => {
+    Meteor.call('nven.updateFromClient', nodeObj, (err, res) => {
       if(err){
         if(err.error == 'validation-error'){
           console.log(err);
@@ -41,7 +41,7 @@ Meteor.startup(() => {
   });
 
   // Listen to incoming HTTP requests (can only be used on the server).
-  WebApp.connectHandlers.use('/nven-api', (req, res, next) => {
+  WebApp.connectHandlers.use('/nven-api1', (req, res, next) => {
     var body = '';
     req.on('readable', () => {
       body += req.read();
@@ -50,16 +50,10 @@ Meteor.startup(() => {
       try{
         let content = JSON.parse(body);
         try{//update node... potentially
-          userId = content.owner;
-          
-          //form proper nodeObj
           nodeObj = content
-          delete nodeObj.owner 
-          nodeObj._id = nodeObj.nodeId
-          delete nodeObj.nodeId
 
           //Update
-          callFromClient(userId, nodeObj, res);
+          callFromClient(nodeObj, res);
         }catch(malformedContent){
           throw malformedContent;
         }    
