@@ -10,4 +10,4 @@ This is a Collection of Javascript Projects
       other projects.  
       
 To Download only the meteor skeleton:  
-`git clone https://downgit.github.io/#/home?url=https://github.com/BlakeERichey/Javascript/tree/master/Website`
+`git clone https://downgit.github.io/#/home?url=https://github.com/BlakeERichey/Javascript/tree/master/Meteor%20Skeleton`
